@@ -1,0 +1,10 @@
+1. Modificar application/config/config.php
+
+$config['sess_saves_path'] = '/ruta/directorio/session'
+
+2. Modificar database.php
+User
+Pass
+database
+
+
