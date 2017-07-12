@@ -39,8 +39,16 @@ class Campanha_model extends CI_Model {
         return FALSE;
     }
 
+
     function get_by_region_id($regionID){
-        $this->db->select('*');
+        $this->db->select('CampanhaId');
+        $this->db->select('Playa.Nombre AS PlayaNombre');
+        $this->db->select('Ciudad.Nombre AS CiudadNombre');
+        $this->db->select('CampanhaId');
+        $this->db->select('FechaHora');
+        $this->db->select('TamanhoMedicion');
+        $this->db->select('Estado');
+        $this->db->select('FotoPrincipal');
         $this->db->from('Campanha');
         $this->db->join('Playa','Campanha.PlayaId = Playa.PlayaId');
         $this->db->join('Ciudad', 'Ciudad.CiudadId= Playa.CiudadId');
@@ -50,10 +58,34 @@ class Campanha_model extends CI_Model {
         $query = $this->db->get();
 
         if($query->num_rows()>0){
-            return $query->result();
+            $campanhas = $query->result();
+            $result = array();
+            foreach($campanhas as $campanha) {
+                $datosCampanha = array($campanha->CampanhaId, $campanha->FechaHora, $campanha->TamanhoMedicion, $campanha->Estado);
+
+                $result[$campanha->CiudadNombre][$campanha->PlayaNombre]['Foto'] = $campanha->FotoPrincipal;
+                $result[$campanha->CiudadNombre][$campanha->PlayaNombre]['campanhas'][] = $datosCampanha;
+            }
+            return $result;
         }
         return FALSE;
-
     }
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
