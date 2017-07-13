@@ -80,6 +80,18 @@ class Tecnico extends MY_Controller
             redirect('');
         }
 
+        //Revisar que bitacora no exista
+        $this->load->database();
+        $this->load->model('Bitacora_model');
+        $existeBitacora = $this->Bitacora_model->exist_Bitacora($perfilId, $campanhaId);
+
+        $data = array();
+
+        if(!$existeBitacora){
+            $this->load->view('templates/header');
+            $this->load->view('templates/footer');
+        }
+
     }
 
 
