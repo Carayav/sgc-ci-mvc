@@ -25,7 +25,7 @@ class Campanha_model extends CI_Model {
         $this->db->where('CampanhaId', $campanhaId);
         $query = $this->db->get('Campanha');
         if($query->num_rows()>0){
-            return $query->result();
+            return $query->row();
         }
         return FALSE;
     }
@@ -70,6 +70,8 @@ class Campanha_model extends CI_Model {
         }
         return FALSE;
     }
+
+
 }
 
 
