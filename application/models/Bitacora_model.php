@@ -40,4 +40,16 @@ class Bitacora_model extends CI_Model
         }
         return FALSE;
     }
+
+    function get_by_perfil_and_campanha($perfilId, $campanhaId){
+        $this->db->where('PerfilId', $perfilId);
+        $this->db->where('CampanhaId', $campanhaId);
+        $query = $this->db->get('Bitacora');
+        if($query->num_rows()>0){
+            return $query->row();
+        }
+        return FALSE;
+    }
+
+
 }

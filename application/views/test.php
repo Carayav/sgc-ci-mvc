@@ -7,10 +7,11 @@
  * Time: 3:10 PM
  */
 
-foreach ($perfiles as $id => $usuario){
-        echo $id;
-        echo $usuario;
-    }
+
+foreach ($arreglo as $perfilId => $estado){
+
+    echo $perfilId.' '.implode(" ", $estado).'<br>';
+}
 
 
 
