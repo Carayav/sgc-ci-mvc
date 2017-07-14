@@ -24,7 +24,7 @@
                         $html_playa .= '<td>'.$campanha[1].'</td>';
                         $html_playa .= '<td>'.$campanha[2].'</td><td>';
                         if($campanha[3] == 1) {
-                            $html_playa .= '<a href="elegir_perfil/'.$campanha[0].'" type="button" class="btn btn-primary btn-xs">';
+                            $html_playa .= '<a href="tecnico/elegir_perfil/'.$campanha[0].'" type="button" class="btn btn-primary btn-xs">';
                             $html_playa .= 'Elegir Perfil';
                             $html_playa .= '</a>';
                         }

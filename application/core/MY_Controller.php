@@ -15,6 +15,7 @@ class MY_Controller extends CI_Controller {
         $this->load->helper('url');
         $this->load->helper('security');
         $this->load->helper('language');
+        $this->load->library('session');
 
         //$this->lang->load('en_admin', 'english');
     }

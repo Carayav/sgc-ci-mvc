@@ -41,12 +41,31 @@ class Bitacora_model extends CI_Model
         return FALSE;
     }
 
-    function exist_Bitacora($perfilId, $campanhaId){
+    function existe($perfilId, $campanhaId){
         $this->db->where('PerfilId', $perfilId);
         $this->db->where('CampanhaId', $campanhaId);
         $query = $this->db->get('Bitacora');
         if($query->num_rows()>0){
             return TRUE;
+        }
+        return FALSE;
+    }
+
+    function crear($FechaHora, $CampanhaId, $PerfilId, $UsuarioId){
+        $data = array(
+            'FechaHora' => $FechaHora,
+            'CampanhaId' => $CampanhaId,
+            'PerfilId' => $PerfilId,
+            'UsuarioId' => $UsuarioId
+        );
+        $this->db->insert('Bitacora', $data);
+
+        $this->db->where('PerfilId', $PerfilId);
+        $this->db->where('CampanhaId', $CampanhaId);
+        $this->db->where('UsuarioId', $UsuarioId);
+        $query = $this->db->get('Bitacora');
+        if($query->num_rows()>0){
+            return $query->row();
         }
         return FALSE;
     }

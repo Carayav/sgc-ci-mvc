@@ -24,21 +24,17 @@ class Medicion_model extends CI_Model
     }
 
     function get_by_id($medicionId){
-        $this->db->select('*');
-        $this->db->from('Medicion');
         $this->db->where('MedicionId', $medicionId);
-        $query = $this->db->get();
+        $query = $this->db->get('Medicion');
         if($query->num_rows()>0){
-            return $query->result();
+            return $query->row();
         }
         return FALSE;
     }
 
     function get_by_bitacora_id($bitacoraId){
-        $this->db->select('*');
-        $this->db->from('Medicion');
         $this->db->where('BitacoraId', $bitacoraId);
-        $query = $this->db->get();
+        $query = $this->db->get('Medicion');
         if($query->num_rows()>0){
             return $query->result();
         }
@@ -55,7 +51,43 @@ class Medicion_model extends CI_Model
             'BitacoraId' => $bitId
 
         );
-        $this->db->insert('Medicion', $data);
+        return $this->db->insert('Medicion', $data);
+    }
+
+    function validarMedicion($bitacoraId, $usuarioId, $medicionId){
+        $this->db->select('*');
+        $this->db->from('Medicion');
+        $this->db->join('Bitacora','Bitacora.BitacoraId = Medicion.BitacoraId');
+        $this->db->where('Bitacora.BitacoraId', $bitacoraId);
+        $this->db->where('UsuarioId', $usuarioId);
+        $this->db->where('MedicionId',$medicionId);
+        $query = $this->db->get();
+        if($query->num_rows()>0){
+            return TRUE;
+        }
+        return FALSE;
+
+    }
+
+    function actualizarMedicion($MedicionId,
+                                $Estacion,
+                                $EstacionMedicion,
+                                $DistVertical,
+                                $DistHorizontal,
+                                $Comentario,
+                                $BitacoraId){
+        $data = array(
+            'MedicionId' => $MedicionId,
+            'Estacion' => $Estacion,
+            'EstacionMedicion' => $EstacionMedicion,
+            'DistVertical' => $DistVertical,
+            'DistHorizontal' => $DistHorizontal,
+            'BitacoraId' => $BitacoraId,
+            'Comentario' => $Comentario
+        );
+
+        $this->db->where('MedicionId', $MedicionId);
+        $this->db->update('Medicion', $data);
     }
 
 }
